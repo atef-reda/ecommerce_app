@@ -24,10 +24,6 @@ class VerifyCodeControllerImpl extends VerifyCodeController {
     // TODO: implement resendCode
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
   
 
 }

@@ -24,10 +24,6 @@ class VerifyCodeSignupControllerImpl extends VerifyCodeSignupController {
     // TODO: implement resendCode
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
   
 
 }
