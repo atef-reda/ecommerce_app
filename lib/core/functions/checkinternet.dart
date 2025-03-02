@@ -1,13 +1,25 @@
+import 'dart:async';
 import 'dart:io';
 
 Future<bool> checkInternet() async {
-  try {
-    var result = await InternetAddress.lookup("google.com");
-    if (result.isNotEmpty) {
-      return true;
+  List<String> testSites = [
+    "google.com",
+    "cloudflare.com",
+    "github.com"
+  ];
+
+  for (String site in testSites) {
+    try {
+      final result = await InternetAddress.lookup(site).timeout(Duration(seconds: 3));
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true; // Internet is available
+      }
+    } on SocketException catch (_) {
+      continue; // Try the next site
+    } on TimeoutException catch (_) {
+      continue; // Timeout, try the next site
     }
-    return false;
-  } on SocketException catch (_) {
-    return false;
   }
+
+  return false; // No internet connection
 }

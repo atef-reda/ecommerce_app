@@ -1,6 +1,11 @@
+import 'package:ecommerce_app/core/class/crud.dart';
+import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/routes.dart';
+import 'package:ecommerce_app/data/datasource/remote/logindata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../core/functions/handlingdataresponse.dart';
 
 abstract class LoginController extends GetxController {
   login();
@@ -14,19 +19,39 @@ class LoginControllerImpl extends LoginController {
   late TextEditingController passwordController;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool showpassword = true;
+  StatusRequest? statusRequest;
+  LoginData loginData = LoginData(crud: Get.find<Crud>());
   @override
   goToSignUp() {
     Get.offAllNamed(AppRoutes.signUp);
   }
 
   @override
-  login() {
+  login() async{
     var formdata = formkey.currentState;
     if (formdata!.validate()) {
-      print('valid');
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await loginData.postdata(
+          email: emailController.text,
+          password: passwordController.text);
+      statusRequest = handlingDataResponse(response);
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == 'success') {
+              Get.offAllNamed(AppRoutes.homepage);
+        } else {
+          Get.defaultDialog(title: '55'.tr, middleText: '58'.tr);
+          statusRequest = StatusRequest.failure;
+        }
+      }
+      // else{
+      //   Get.defaultDialog(title: '55'.tr, middleText: '58'.tr);
+      //   statusRequest = StatusRequest.failure;
+      // }
     } else {
       print('not valid');
     }
+    update();
   }
 
   @override

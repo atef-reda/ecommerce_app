@@ -12,16 +12,18 @@ class Crud {
       if (internet) {
         var response = await http.post(Uri.parse(linkurl), body: data);
         if (response.statusCode == 200 || response.statusCode == 201) {
+          print('-------------------- ${response.statusCode} -----------------');
           Map responsebody = jsonDecode(response.body);
+          print(responsebody);
           return Right(responsebody);
         } else {
-          return Left(StatusRequest.serverfaliur);
+          return Left(StatusRequest.serverfailure);
         }
       } else {
-        return Left(StatusRequest.internetfaliur);
+        return Left(StatusRequest.offlinefailure);
       }
     } catch (_) {
-      return Left(StatusRequest.serverfaliur);
+      return Left(StatusRequest.serverexecption);
     }
   }
 }

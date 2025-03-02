@@ -1,12 +1,16 @@
+import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/routes.dart';
+import 'package:ecommerce_app/data/datasource/remote/signupdata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../core/class/crud.dart';
+import '../../core/functions/handlingdataresponse.dart';
 
 abstract class SignUpController extends GetxController {
   signup();
   goToLogin();
   goTocheckEmail();
-  goToVerifyCode();
   togglePasswordShow();
 }
 
@@ -15,7 +19,9 @@ class SignUpControllerImpl extends SignUpController {
   late TextEditingController passwordController;
   late TextEditingController usernameController;
   late TextEditingController phoneController;
+  StatusRequest? statusRequest;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  SignUpData signUpData = SignUpData(crud: Get.find<Crud>());
   bool showpassword = true;
   @override
   goToLogin() {
@@ -23,14 +29,30 @@ class SignUpControllerImpl extends SignUpController {
   }
 
   @override
-  signup() {
+  signup() async {
     var formdata = formkey.currentState;
     if (formdata!.validate()) {
-      goToVerifyCode();
-      print('valid');
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await signUpData.postdata(
+          username: usernameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+          password: passwordController.text);
+      statusRequest = handlingDataResponse(response);
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == 'success') {
+              Get.offAllNamed(AppRoutes.verifyCodeSignUp,arguments: {'email':emailController.text});
+        } else {
+          Get.defaultDialog(title: '55'.tr, middleText: '56'.tr);
+          statusRequest = StatusRequest.failure;
+        }
+      }
     } else {
       print('not valid');
     }
+    update();
+
     //to delete content of forms when exit from signup page
     //we can use lazy put instead of put to solve this problem
     // Get.delete<SignUpControllerImpl>();
@@ -42,9 +64,7 @@ class SignUpControllerImpl extends SignUpController {
   }
 
   @override
-  goToVerifyCode() {
-    Get.offAllNamed(AppRoutes.verifyCodeSignUp);
-  }
+
 
   @override
   togglePasswordShow() {

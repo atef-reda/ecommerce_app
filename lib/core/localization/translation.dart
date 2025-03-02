@@ -58,8 +58,11 @@ class MyTranslation extends Translations {
           '51':'تنبيه',
           '52': 'هل تريد الخروج من التطبيق',
           '53': 'الغاء',          
-          '54': 'تاكيد',          
-
+          '54': 'تاكيد', 
+          '55':'تحذير',
+          '56':'رقم الموبيل هذا او الاميل موجود من قبل',         
+          '57':'الكود الذي ادخلته غير صحيح',
+          '58':'الايميل او الباسورد غير صحيح',
         },
         "en": {
           "1": "Choose Language",
@@ -118,7 +121,11 @@ class MyTranslation extends Translations {
           '51':'alert',
           '52':'are you want exit from app',
           '53':'cancel',
-          '54':'confirm'
+          '54':'confirm',
+          '55':'Warning',
+          '56':'Phone Or Email Are Exist',
+          '57':'Verify Code Not Correct',
+          '58':'Email or Password Not Correct',
         }
       };
 }

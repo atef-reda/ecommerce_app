@@ -15,4 +15,6 @@ class AppRoutes {
   static const String onBoarding = '/onBoarding';
   static const String language = '/';
 
+  //app
+  static const String homepage = '/homepage';
 }

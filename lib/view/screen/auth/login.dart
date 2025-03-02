@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/controller/auth/logincontroller.dart';
+import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:ecommerce_app/core/functions/alertexitapp.dart';
 import 'package:ecommerce_app/view/widget/auth/customtextbody.dart';
@@ -35,7 +36,7 @@ class Login extends StatelessWidget {
           alertExitApp();
         },
         child: GetBuilder<LoginControllerImpl>(builder: (controller) {
-          return Form(
+          return controller.statusRequest==StatusRequest.loading?Center(child: Text('Loading ...'),):Form(
             key: controller.formkey,
             child: Container(
               padding: const EdgeInsets.all(20),

@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/bindings.dart';
 import 'package:ecommerce_app/core/localization/changelocal.dart';
 import 'package:ecommerce_app/core/services/services.dart';
+import 'package:ecommerce_app/test.dart';
+import 'package:ecommerce_app/testview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'core/localization/translation.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: changeLocalController.appTheme,
-      // home: Test(),
+      // home: TestView(),
       getPages:getPages ,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/controller/auth/verifycodesignupcontroller.dart';
+import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:ecommerce_app/view/widget/auth/customotpfiledtext.dart';
 import 'package:ecommerce_app/view/widget/auth/customtextbody.dart';
@@ -13,37 +14,48 @@ class VerifyCodeSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    VerifyCodeSignupControllerImpl controller = Get.put(VerifyCodeSignupControllerImpl());
+    Get.put(VerifyCodeSignupControllerImpl());
     return Scaffold(
-      backgroundColor: AppColor.backgroundcolor,
-      appBar: AppBar(
-        title: Text('43'.tr),
         backgroundColor: AppColor.backgroundcolor,
-        elevation: 0.0,
-        centerTitle: true,
-        titleTextStyle: Theme.of(context)
-            .textTheme
-            .headlineLarge!
-            .copyWith(color: AppColor.grey),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.all(20),
-        child: ListView(
-          children: [
-            CustomTextTitleAuth(title: '44'.tr),
-            CustomTextBodyAuth(body: '45'.tr),
-            const SizedBox(height: 30),
-            CustomOtpFiledText(onSubmit: (String code) {
-              controller.goToSuccessSignUp();
-            },),
-            const SizedBox(height: 30),
-            CustomTextButton(text: '46'.tr, color: AppColor.primaryColor, onTap: () {
-              controller.resendCode();
-            }),
-          ],
+        appBar: AppBar(
+          title: Text('43'.tr),
+          backgroundColor: AppColor.backgroundcolor,
+          elevation: 0.0,
+          centerTitle: true,
+          titleTextStyle: Theme.of(context)
+              .textTheme
+              .headlineLarge!
+              .copyWith(color: AppColor.grey),
         ),
-      ),
-    );
+        body: GetBuilder<VerifyCodeSignupControllerImpl>(
+          builder: (controller) =>
+              controller.statusRequest == StatusRequest.loading
+                  ? Center(
+                      child: Text('Loading...'),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(20),
+                      child: ListView(
+                        children: [
+                          CustomTextTitleAuth(title: '44'.tr),
+                          CustomTextBodyAuth(body: '45'.tr),
+                          const SizedBox(height: 30),
+                          CustomOtpFiledText(
+                            onSubmit: (String code) {
+                              controller.goToSuccessSignUp(code);
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          CustomTextButton(
+                              text: '46'.tr,
+                              color: AppColor.primaryColor,
+                              onTap: () {
+                                controller.resendCode();
+                              }),
+                        ],
+                      ),
+                    ),
+        ));
   }
 }
