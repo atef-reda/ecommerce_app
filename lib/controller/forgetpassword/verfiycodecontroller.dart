@@ -1,46 +1,45 @@
 import 'package:ecommerce_app/core/class/crud.dart';
 import 'package:ecommerce_app/core/class/statusrequest.dart';
-import 'package:ecommerce_app/data/datasource/remote/auth/verifycodesignupdata.dart';
+import 'package:ecommerce_app/data/datasource/remote/forgetpassword/verifycodedata.dart';
 import 'package:get/get.dart';
 import '../../core/constant/routes.dart';
 import '../../core/functions/handlingdataresponse.dart';
 
-abstract class VerifyCodeSignupController extends GetxController {
-  checkCode();
-  goToSuccessSignUp(String code);
+abstract class VerifyCodeController extends GetxController {
+  checkCode(String code);
+  goToResetPassword();
   resendCode();
 }
 
-class VerifyCodeSignupControllerImpl extends VerifyCodeSignupController {
+class VerifyCodeControllerImpl extends VerifyCodeController {
   StatusRequest statusRequest=StatusRequest.none;
-  VerifyCodeSignUpData verifyCodeSignUpData =
-      VerifyCodeSignUpData(crud: Get.find<Crud>());
+  VerifyCodeForgetPasswordData verifyCodeForgetPasswordData =
+      VerifyCodeForgetPasswordData(crud: Get.find<Crud>());
   late String email;
 
   @override
-  goToSuccessSignUp(String code) async {
+  goToResetPassword() {
+    Get.offAllNamed(AppRoutes.resetPassword, arguments: {'email': email});
+  }
+
+  @override
+  checkCode(String code) async {
     statusRequest = StatusRequest.loading;
     update();
-    var response =
-        await verifyCodeSignUpData.postdata(email: email, verifycode: code);
+    var response = await verifyCodeForgetPasswordData.postdata(
+        email: email, verifycode: code);
     statusRequest = handlingDataResponse(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        Get.offAllNamed(AppRoutes.successSignUp);
+        goToResetPassword();
       } else {
         Get.defaultDialog(
             title: '55'.tr,
-            middleText: '57'.tr,
-           );
+            middleText: '57'.tr,);
         statusRequest = StatusRequest.failure;
       }
     }
     update();
-  }
-
-  @override
-  checkCode() {
-    // TODO: implement login
   }
 
   @override

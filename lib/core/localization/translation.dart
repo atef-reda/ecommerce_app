@@ -63,6 +63,8 @@ class MyTranslation extends Translations {
           '56':'رقم الموبيل هذا او الاميل موجود من قبل',         
           '57':'الكود الذي ادخلته غير صحيح',
           '58':'الايميل او الباسورد غير صحيح',
+          '59':'هذا الايميل غير موجود',
+          '60':'تاكيد الباسورد مختلف عن الباسورد',
         },
         "en": {
           "1": "Choose Language",
@@ -126,6 +128,8 @@ class MyTranslation extends Translations {
           '56':'Phone Or Email Are Exist',
           '57':'Verify Code Not Correct',
           '58':'Email or Password Not Correct',
+          '59':'This Email Not Exist',
+          '60':'confirm password not match with password'
         }
       };
 }

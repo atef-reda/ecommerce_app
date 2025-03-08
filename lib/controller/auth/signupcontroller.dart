@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/routes.dart';
-import 'package:ecommerce_app/data/datasource/remote/signupdata.dart';
+import 'package:ecommerce_app/data/datasource/remote/auth/signupdata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +19,7 @@ class SignUpControllerImpl extends SignUpController {
   late TextEditingController passwordController;
   late TextEditingController usernameController;
   late TextEditingController phoneController;
-  StatusRequest? statusRequest;
+  StatusRequest statusRequest=StatusRequest.none;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   SignUpData signUpData = SignUpData(crud: Get.find<Crud>());
   bool showpassword = true;

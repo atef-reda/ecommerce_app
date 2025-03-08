@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/controller/auth/signupcontroller.dart';
-import 'package:ecommerce_app/core/class/statusrequest.dart';
+import 'package:ecommerce_app/core/class/handlingdataview.dart';
 import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:ecommerce_app/view/widget/auth/customtextbody.dart';
 import 'package:ecommerce_app/view/widget/auth/customtexttitle.dart';
@@ -35,9 +35,7 @@ class Signup extends StatelessWidget {
           alertExitApp();
         },
         child: GetBuilder<SignUpControllerImpl>(builder: (controller) {
-          return controller.statusRequest == StatusRequest.loading
-              ? Center(child: Text('loading ...'))
-              : Form(
+          return HandlingDataRequest(statusRequest: controller.statusRequest, widget:  Form(
                   key: controller.formkey,
                   child: Container(
                     padding: const EdgeInsets.all(20),
@@ -106,7 +104,7 @@ class Signup extends StatelessWidget {
                       ],
                     ),
                   ),
-                );
+                ),);  
         }),
       ),
     );

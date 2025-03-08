@@ -31,3 +31,33 @@ class HandlingDataView extends StatelessWidget {
     return widget;
   }
 }
+
+
+
+
+
+class HandlingDataRequest extends StatelessWidget {
+  const HandlingDataRequest(
+      {super.key, required this.statusRequest, required this.widget});
+  final StatusRequest statusRequest;
+  final Widget widget;
+  @override
+  Widget build(BuildContext context) {
+    if (statusRequest == StatusRequest.loading) {
+      return Center(
+        child: Lottie.asset(AppImageAsset.loading,height: 250,width: 250)
+      );
+    } else if (statusRequest == StatusRequest.offlinefailure) {
+      return Center(
+        child:Lottie.asset(AppImageAsset.offline,height: 250,width: 250),
+      );
+    }
+    else if (statusRequest == StatusRequest.serverfailure) {
+      return Center(
+        child: Lottie.asset(AppImageAsset.server,height: 250,width: 250),
+      );
+    }
+    return widget;
+  }
+}
+

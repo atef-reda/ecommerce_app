@@ -18,7 +18,7 @@ class OnBordingControllerImpl extends OnBordingController {
   next() {
     currentIndex++;
     if (currentIndex > onBoardingList.length - 1) {
-      myServices.prefs!.setString('onboarding', '1');
+      myServices.prefs!.setString('step', "1");
       Get.offAllNamed(AppRoutes.login);
     } else {
       pageController.animateToPage(currentIndex,

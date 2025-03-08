@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/controller/auth/logincontroller.dart';
-import 'package:ecommerce_app/core/class/statusrequest.dart';
+import 'package:ecommerce_app/core/class/handlingdataview.dart';
 import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:ecommerce_app/core/functions/alertexitapp.dart';
 import 'package:ecommerce_app/view/widget/auth/customtextbody.dart';
@@ -36,62 +36,65 @@ class Login extends StatelessWidget {
           alertExitApp();
         },
         child: GetBuilder<LoginControllerImpl>(builder: (controller) {
-          return controller.statusRequest==StatusRequest.loading?Center(child: Text('Loading ...'),):Form(
-            key: controller.formkey,
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.all(20),
-              child: ListView(
-                children: [
-                  CustomTextTitleAuth(title: '10'.tr),
-                  CustomLogoAuth(),
-                  CustomTextBodyAuth(body: '11'.tr),
-                  const SizedBox(height: 30),
-                  CustomFormAuth(
-                    validator: (val) {
-                      return validInput(val!, 12, 100, 'email');
-                    },
-                    controller: controller.emailController,
-                    label: '18'.tr,
-                    hint: '12'.tr,
-                    icon: Icons.email_outlined,
-                  ),
-                  CustomFormAuth(
-                    obscureText: controller.showpassword,
-                    onPressedIcon: () {
-                      controller.togglePasswordShow();
-                    },
-                    validator: (val) {
-                      return validInput(val!, 6, 30, 'password');
-                    },
-                    controller: controller.passwordController,
-                    label: '19'.tr,
-                    hint: '13'.tr,
-                    icon: Icons.lock_outlined,
-                  ),
-                  CustomTextButton(
-                    text: '14'.tr,
-                    color: AppColor.primaryColor,
-                    onTap: () {
-                      controller.goToForgetPassword();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  CustomButtonAuth(
-                      text: '15'.tr,
-                      onPressed: () {
-                        controller.login();
-                      }),
-                  const SizedBox(height: 45),
-                  DontHaveAccountText(
-                    firstText: '16'.tr,
-                    secondText: '17'.tr,
-                    color: AppColor.primaryColor,
-                    onTap: () {
-                      controller.goToSignUp();
-                    },
-                  ),
-                ],
+          return HandlingDataRequest(
+            statusRequest: controller.statusRequest,
+            widget: Form(
+              key: controller.formkey,
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
+                child: ListView(
+                  children: [
+                    CustomTextTitleAuth(title: '10'.tr),
+                    CustomLogoAuth(),
+                    CustomTextBodyAuth(body: '11'.tr),
+                    const SizedBox(height: 30),
+                    CustomFormAuth(
+                      validator: (val) {
+                        return validInput(val!, 12, 100, 'email');
+                      },
+                      controller: controller.emailController,
+                      label: '18'.tr,
+                      hint: '12'.tr,
+                      icon: Icons.email_outlined,
+                    ),
+                    CustomFormAuth(
+                      obscureText: controller.showpassword,
+                      onPressedIcon: () {
+                        controller.togglePasswordShow();
+                      },
+                      validator: (val) {
+                        return validInput(val!, 6, 30, 'password');
+                      },
+                      controller: controller.passwordController,
+                      label: '19'.tr,
+                      hint: '13'.tr,
+                      icon: Icons.lock_outlined,
+                    ),
+                    CustomTextButton(
+                      text: '14'.tr,
+                      color: AppColor.primaryColor,
+                      onTap: () {
+                        controller.goToForgetPassword();
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomButtonAuth(
+                        text: '15'.tr,
+                        onPressed: () {
+                          controller.login();
+                        }),
+                    const SizedBox(height: 45),
+                    DontHaveAccountText(
+                      firstText: '16'.tr,
+                      secondText: '17'.tr,
+                      color: AppColor.primaryColor,
+                      onTap: () {
+                        controller.goToSignUp();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );

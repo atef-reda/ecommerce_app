@@ -9,7 +9,10 @@ class Mymiddleware extends GetMiddleware{
   MyServices myServices=Get.find();
   @override
   RouteSettings? redirect(String? route) {
-    if(myServices.prefs!.getString('onboarding')=='1'){
+    if(myServices.prefs!.getString('step')=='2'){
+    return RouteSettings(name: AppRoutes.homepage);
+    }
+    if(myServices.prefs!.getString('step')=='1'){
     return RouteSettings(name: AppRoutes.login);
     }
     return null;
