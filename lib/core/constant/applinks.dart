@@ -3,8 +3,8 @@ static const String server = 'http://192.168.1.5/ecommerce%20app%20backend/';
   static const String images = '${server}upload';
 
   //------------------------- Images ---------------------------
-  static const String categories = '${server}upload/categories';
-  static const String items = '${server}upload/items';
+  static const String categoriesImages = '${server}upload/categories';
+  static const String itemsImages = '${server}upload/items';
   //------------------------- Images ---------------------------
 
 
@@ -18,6 +18,7 @@ static const String server = 'http://192.168.1.5/ecommerce%20app%20backend/';
   static const String forgetpasswordresetpassword = '${server}forgetpassword/resetpassword.php';
 
 //--------------------------- APP Pages ------------------------
-  static const String home = '${server}home.php';
+  static const String homePage = '${server}home.php';
+  static const String itemsPage = '${server}items/items.php';
 
 }

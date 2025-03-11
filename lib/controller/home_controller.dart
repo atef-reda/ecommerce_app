@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/class/crud.dart';
 import 'package:ecommerce_app/core/class/statusrequest.dart';
+import 'package:ecommerce_app/core/constant/routes.dart';
 import 'package:ecommerce_app/core/services/services.dart';
 import 'package:ecommerce_app/data/datasource/remote/homedata.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../core/functions/handlingdataresponse.dart';
 abstract class HomeController extends GetxController {
   getData();
   initialData();
+  goToItems(int index, List categories, String categoriesId);
 }
 
 class HomeControllerImpl extends HomeController {
@@ -18,7 +20,7 @@ class HomeControllerImpl extends HomeController {
   late String phone;
   late int id;
   late String step;
-
+  late String lang;
   StatusRequest statusRequest = StatusRequest.none;
   HomeData homeData = HomeData(crud: Get.find<Crud>());
   List categories = [];
@@ -30,6 +32,7 @@ class HomeControllerImpl extends HomeController {
     phone = myServices.prefs!.getString('phone')!;
     name = myServices.prefs!.getString('name')!;
     step = myServices.prefs!.getString('step')!;
+    lang = myServices.prefs!.getString('lang')!;
   }
 
   @override
@@ -42,7 +45,6 @@ class HomeControllerImpl extends HomeController {
       if (response['status'] == 'success') {
         categories.addAll(response['categories']);
         items.addAll(response['items']);
-
       } else {
         statusRequest = StatusRequest.failure;
       }
@@ -55,5 +57,14 @@ class HomeControllerImpl extends HomeController {
     initialData();
     getData();
     super.onInit();
+  }
+
+  @override
+  goToItems(int index, List categories, String categoriesId) {
+    Get.toNamed(AppRoutes.itemsscreen, arguments: {
+      'categories': categories,
+      'selectetcat': index,
+      'categoriesId': categoriesId
+    });
   }
 }

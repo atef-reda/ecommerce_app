@@ -56,7 +56,6 @@ class LoginControllerImpl extends LoginController {
         statusRequest = StatusRequest.none;
       }
     } else {
-      print('not valid');
     }
     update();
   }
@@ -75,7 +74,7 @@ class LoginControllerImpl extends LoginController {
   @override
   void onInit() {
     FirebaseMessaging.instance.getToken().then((value) {
-      print('token is : $value');
+      // print('token is : $value');
     });
     emailController = TextEditingController();
     passwordController = TextEditingController();

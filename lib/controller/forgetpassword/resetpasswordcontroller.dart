@@ -55,7 +55,7 @@ class ResetPasswordControllerImpl extends ResetPasswordController {
       //   statusRequest = StatusRequest.failure;
       // }
     } else {
-      print('not valid');
+      // print('not valid');
     }
     update();
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../core/constant/color.dart';
+import '../../core/constant/color.dart';
 
-class CustomApparHome extends StatelessWidget {
-  const CustomApparHome(
+class CustomAppar extends StatelessWidget {
+  const CustomAppar(
       {super.key,
       this.onPressedIcon,
       this.onPressedSearch,

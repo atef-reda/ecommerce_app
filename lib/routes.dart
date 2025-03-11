@@ -5,6 +5,7 @@ import 'package:ecommerce_app/view/screen/forget_password/success_resetpassword.
 import 'package:ecommerce_app/view/screen/auth/success_signup.dart';
 import 'package:ecommerce_app/view/screen/auth/verifycodesignup.dart';
 import 'package:ecommerce_app/view/screen/homescreen.dart';
+import 'package:ecommerce_app/view/screen/items.dart';
 import 'package:ecommerce_app/view/screen/language.dart';
 import 'package:ecommerce_app/view/screen/onboarding.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ import 'view/screen/auth/checkemail.dart';
 import 'view/screen/forget_password/forgetpassword.dart';
 import 'view/screen/forget_password/resetpassword.dart';
 import 'view/screen/forget_password/verifycode.dart';
+import 'view/screen/itemdetials.dart';
 
 List<GetPage<dynamic>>? getPages =[
   //OnBording
@@ -30,4 +32,6 @@ List<GetPage<dynamic>>? getPages =[
   GetPage(name: AppRoutes.verifyCodeSignUp, page:()=> const VerifyCodeSignUp()),
   //App
   GetPage(name: AppRoutes.homepage, page:()=>  HomeScreen()),
+  GetPage(name: AppRoutes.itemsscreen, page:()=>  ItemsScreen()),
+  GetPage(name: AppRoutes.itemdetials, page:()=>  ItemDetials()),
 ];

@@ -18,7 +18,6 @@ class CheckEmailControllerImpl extends CheckEmailController {
 
   @override
   checkEmail() {
-    // TODO: implement login
   }
   @override
   void onInit() {

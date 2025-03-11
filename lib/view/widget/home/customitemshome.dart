@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 
 import '../../../core/constant/applinks.dart';
 import '../../../core/constant/color.dart';
+import '../../../core/functions/translationdatabase.dart';
 
-class CustomItemsList extends GetView<HomeControllerImpl> {
-  const CustomItemsList({super.key});
+class CustomItemsListHome extends GetView<HomeControllerImpl> {
+  const CustomItemsListHome({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +40,7 @@ class CustomItems extends StatelessWidget {
           child: Image.network(
               height: 120,
               width: 140,
-              '${AppLink.items}/${itemsModel.itemsImage}'),
+              '${AppLink.itemsImages}/${itemsModel.itemsImage}'),
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
@@ -52,7 +53,7 @@ class CustomItems extends StatelessWidget {
         Positioned(
           left: 20,
           child: Text(
-            '${itemsModel.itemsName}',
+            '${traslationDataBase(arColumn: itemsModel.itemsNameAr!, enColumn: itemsModel.itemsName!)}', 
             style: TextStyle(
               fontSize: 13,
               color: AppColor.backgroundcolor,

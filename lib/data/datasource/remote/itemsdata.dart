@@ -1,14 +1,14 @@
-import 'package:ecommerce_app/core/class/crud.dart';
 import 'package:ecommerce_app/core/constant/applinks.dart';
+import '../../../core/class/crud.dart';
 
-class HomeData {
+class ItemsData {
   Crud crud;
-  HomeData({
+  ItemsData({
     required this.crud,
   });
-  postdata() async {
+  postdata(String categoriesId) async {
     var response = await crud
-        .postData(AppLink.homePage, {});
+        .postData(AppLink.itemsPage, {'categories_id':categoriesId});
     return response.fold((left)=>left, (right)=>right);
   }
 }

@@ -40,12 +40,10 @@ class VerifyCodeSignupControllerImpl extends VerifyCodeSignupController {
 
   @override
   checkCode() {
-    // TODO: implement login
   }
 
   @override
   resendCode() {
-    // TODO: implement resendCode
   }
   @override
   void onInit() {

@@ -44,7 +44,6 @@ class VerifyCodeControllerImpl extends VerifyCodeController {
 
   @override
   resendCode() {
-    // TODO: implement resendCode
   }
   @override
   void onInit() {

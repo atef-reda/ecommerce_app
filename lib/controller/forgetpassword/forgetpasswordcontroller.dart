@@ -42,7 +42,7 @@ class ForgetPasswordControllerImpl extends ForgetPasswordController {
         }
       }
     } else {
-      print('not valid');
+      // print('not valid');
     }
     update();
   }

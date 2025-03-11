@@ -65,6 +65,13 @@ class MyTranslation extends Translations {
           '58':'الايميل او الباسورد غير صحيح',
           '59':'هذا الايميل غير موجود',
           '60':'تاكيد الباسورد مختلف عن الباسورد',
+          '61':'البحث عن المنتج',
+          '62':'مفاجاة صيفية',
+          '63':'كاش باك 20%',
+          '64':'الاقسام',
+          '65':'المنتجات لك',
+          '66':'عرض',
+          '67':'تقييم 3.5',
         },
         "en": {
           "1": "Choose Language",
@@ -129,7 +136,14 @@ class MyTranslation extends Translations {
           '57':'Verify Code Not Correct',
           '58':'Email or Password Not Correct',
           '59':'This Email Not Exist',
-          '60':'confirm password not match with password'
+          '60':'confirm password not match with password',
+          '61':'Find Product',
+          '62':'A Summer Surprize',
+          '63':'CashBack 20%',
+          '64':'Categories',
+          '65':'Product For You',
+          '66':'Offer',
+          '67':'Rating 3.5',
         }
       };
 }

@@ -49,7 +49,7 @@ class SignUpControllerImpl extends SignUpController {
         }
       }
     } else {
-      print('not valid');
+      // print('not valid');
     }
     update();
 
