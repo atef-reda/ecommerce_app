@@ -19,4 +19,7 @@ class AppRoutes {
   static const String homepage = '/homepage';
   static const String itemsscreen = '/itemsscreen';
   static const String itemdetials = '/itemdetials';
+  static const String myfavorite = '/myfavorite';
+  static const String settings = '/settings';
+  static const String cartscreen = '/cartscreen';
 }

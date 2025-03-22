@@ -6,9 +6,9 @@ class ItemsData {
   ItemsData({
     required this.crud,
   });
-  postdata(String categoriesId) async {
+  postdata(String categoriesId,String userId) async {
     var response = await crud
-        .postData(AppLink.itemsPage, {'categories_id':categoriesId});
+        .postData(AppLink.itemsPage, {'categories_id':categoriesId , 'user_id':userId});
     return response.fold((left)=>left, (right)=>right);
   }
 }

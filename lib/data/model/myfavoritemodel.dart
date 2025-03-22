@@ -1,4 +1,4 @@
-class ItemsModel {
+class MyFavoriteModel {
   int? itemsId;
   String? itemsName;
   String? itemsNameAr;
@@ -7,18 +7,16 @@ class ItemsModel {
   String? itemsImage;
   int? itemsCount;
   int? itemsActive;
-  double? itemsPrice;
+  int? itemsPrice;
   int? itemsDiscount;
   String? itemsDatetime;
   int? itemsCatogries;
-  int? categoriesId;
-  String? categoriesName;
-  String? categoriesNameAr;
-  String? categoriesImage;
-  String? categoriesDatetime;
-  String? favorite;
+  int? favoritesId;
+  int? favoritesUsersid;
+  int? favoritesItemsid;
+  int? usersId;
 
-  ItemsModel(
+  MyFavoriteModel(
       {this.itemsId,
       this.itemsName,
       this.itemsNameAr,
@@ -31,14 +29,12 @@ class ItemsModel {
       this.itemsDiscount,
       this.itemsDatetime,
       this.itemsCatogries,
-      this.categoriesId,
-      this.categoriesName,
-      this.categoriesNameAr,
-      this.categoriesImage,
-      this.categoriesDatetime,
-      this.favorite});
+      this.favoritesId,
+      this.favoritesUsersid,
+      this.favoritesItemsid,
+      this.usersId});
 
-  ItemsModel.fromJson(Map<String, dynamic> json) {
+  MyFavoriteModel.fromJson(Map<String, dynamic> json) {
     itemsId = json['items_id'];
     itemsName = json['items_name'];
     itemsNameAr = json['items_name_ar'];
@@ -47,16 +43,14 @@ class ItemsModel {
     itemsImage = json['items_image'];
     itemsCount = json['items_count'];
     itemsActive = json['items_active'];
-    itemsPrice = (json['items_price'] as num?)?.toDouble();
+    itemsPrice = json['items_price'];
     itemsDiscount = json['items_discount'];
     itemsDatetime = json['items_datetime'];
     itemsCatogries = json['items_catogries'];
-    categoriesId = json['categories_id'];
-    categoriesName = json['categories_name'];
-    categoriesNameAr = json['categories_name_ar'];
-    categoriesImage = json['categories_image'];
-    categoriesDatetime = json['categories_datetime'];
-    favorite = json['favorite'];
+    favoritesId = json['favorites_id'];
+    favoritesUsersid = json['favorites_usersid'];
+    favoritesItemsid = json['favorites_itemsid'];
+    usersId = json['users_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,14 +66,11 @@ class ItemsModel {
     data['items_price'] = itemsPrice;
     data['items_discount'] = itemsDiscount;
     data['items_datetime'] = itemsDatetime;
-    data['items_catogries'] = itemsCatogries;
-    data['categories_id'] = categoriesId;
-    data['categories_name'] = categoriesName;
-    data['categories_name_ar'] = categoriesNameAr;
-    data['categories_image'] = categoriesImage;
-    data['categories_datetime'] = categoriesDatetime;
-    data['favorite'] = favorite;
-
+    data['items_catogries'] =itemsCatogries;
+    data['favorites_id'] = favoritesId;
+    data['favorites_usersid'] = favoritesUsersid;
+    data['favorites_itemsid'] = favoritesItemsid;
+    data['users_id'] = usersId;
     return data;
   }
 }

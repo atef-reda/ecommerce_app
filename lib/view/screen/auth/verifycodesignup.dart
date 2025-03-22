@@ -36,7 +36,7 @@ class VerifyCodeSignUp extends StatelessWidget {
             child: ListView(
               children: [
                 CustomTextTitleAuth(title: '44'.tr),
-                CustomTextBodyAuth(body: '45'.tr),
+                CustomTextBodyAuth(body: '${'45'.tr} ${controller.email}'),
                 const SizedBox(height: 30),
                 CustomOtpFiledText(
                   onSubmit: (String code) {

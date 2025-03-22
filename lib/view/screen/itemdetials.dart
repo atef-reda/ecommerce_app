@@ -1,10 +1,7 @@
 import 'package:ecommerce_app/controller/itemdetialscontroller.dart';
-import 'package:ecommerce_app/core/constant/applinks.dart';
 import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
-
 import '../widget/itemdetials/itemsdetialsnavigationbar.dart';
 import '../widget/itemdetials/priceandcount.dart';
 import '../widget/itemdetials/subitemsdetials.dart';
@@ -15,12 +12,11 @@ class ItemDetials extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ItemDetialsControllerImpl controller = Get.put(ItemDetialsControllerImpl());
-
     return Scaffold(
       bottomNavigationBar: ItemsDetialsNavigationBar(),
       body: ListView(
         children: [
-         TopItemPageDetials(),
+          TopItemPageDetials(),
           SizedBox(
             height: 90,
           ),
@@ -42,11 +38,19 @@ class ItemDetials extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  PriceAndItemCount(
-                    count: controller.itemsModel.itemsCount.toString(),
-                    price: controller.itemsModel.itemsPrice.toString(),
-                    onAdd: () {},
-                    onRemove: () {},
+                  GetBuilder<ItemDetialsControllerImpl>(
+                    builder: (controller) {
+                      return PriceAndItemCount(
+                        count: controller.itemCounts.toString(),
+                        price: controller.itemsModel.itemsPrice.toString(),
+                        onAdd: () {
+                          controller.addCart();
+                        },
+                        onRemove: () {
+                          controller.removeCart();
+                        },
+                      );
+                    }
                   ),
                   SizedBox(
                     height: 10,
@@ -56,9 +60,7 @@ class ItemDetials extends StatelessWidget {
                         controller.itemsModel.itemsDesc! +
                         controller.itemsModel.itemsDesc! +
                         controller.itemsModel.itemsDesc!,
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: AppColor.fourthColor),
+                    style: TextStyle(fontSize: 15, color: AppColor.fourthColor),
                   ),
                   SizedBox(
                     height: 10,

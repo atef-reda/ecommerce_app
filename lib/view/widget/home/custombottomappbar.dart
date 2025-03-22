@@ -23,8 +23,8 @@ class CustomBottomAppbar extends GetView<HomescreencontrollerImpl> {
                 controller.pages.length,
                 (index) => CustomButtonAppBar(
                     active: controller.currentPage == index ? true : false,
-                    iconData: Icons.home,
-                    iconText: controller.appbarText[index],
+                    iconData: controller.bottomAppbar[index]['icon'],
+                    iconText: controller.bottomAppbar[index]['title'],
                     onPressed: () {
                       controller.onPageChange(index);
                     }),

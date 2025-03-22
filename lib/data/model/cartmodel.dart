@@ -1,4 +1,6 @@
-class ItemsModel {
+class CartModel {
+  double? itemsprice;
+  int? itemscount;
   int? itemsId;
   String? itemsName;
   String? itemsNameAr;
@@ -11,15 +13,14 @@ class ItemsModel {
   int? itemsDiscount;
   String? itemsDatetime;
   int? itemsCatogries;
-  int? categoriesId;
-  String? categoriesName;
-  String? categoriesNameAr;
-  String? categoriesImage;
-  String? categoriesDatetime;
-  String? favorite;
+  int? cartId;
+  int? cartUsersid;
+  int? cartItemsid;
 
-  ItemsModel(
-      {this.itemsId,
+  CartModel(
+      {this.itemsprice,
+      this.itemscount,
+      this.itemsId,
       this.itemsName,
       this.itemsNameAr,
       this.itemsDesc,
@@ -31,14 +32,14 @@ class ItemsModel {
       this.itemsDiscount,
       this.itemsDatetime,
       this.itemsCatogries,
-      this.categoriesId,
-      this.categoriesName,
-      this.categoriesNameAr,
-      this.categoriesImage,
-      this.categoriesDatetime,
-      this.favorite});
+      this.cartId,
+      this.cartUsersid,
+      this.cartItemsid});
 
-  ItemsModel.fromJson(Map<String, dynamic> json) {
+  CartModel.fromJson(Map<String, dynamic> json) {
+    itemsprice = (json['itemsprice'] as num?)?.toDouble();
+    itemsPrice = (json['items_price'] as num?)?.toDouble();
+    itemscount = json['itemscount'];
     itemsId = json['items_id'];
     itemsName = json['items_name'];
     itemsNameAr = json['items_name_ar'];
@@ -47,20 +48,18 @@ class ItemsModel {
     itemsImage = json['items_image'];
     itemsCount = json['items_count'];
     itemsActive = json['items_active'];
-    itemsPrice = (json['items_price'] as num?)?.toDouble();
     itemsDiscount = json['items_discount'];
     itemsDatetime = json['items_datetime'];
     itemsCatogries = json['items_catogries'];
-    categoriesId = json['categories_id'];
-    categoriesName = json['categories_name'];
-    categoriesNameAr = json['categories_name_ar'];
-    categoriesImage = json['categories_image'];
-    categoriesDatetime = json['categories_datetime'];
-    favorite = json['favorite'];
+    cartId = json['cart_id'];
+    cartUsersid = json['cart_usersid'];
+    cartItemsid = json['cart_itemsid'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['itemsprice'] = itemsprice;
+    data['itemscount'] = itemscount;
     data['items_id'] = itemsId;
     data['items_name'] = itemsName;
     data['items_name_ar'] = itemsNameAr;
@@ -73,13 +72,9 @@ class ItemsModel {
     data['items_discount'] = itemsDiscount;
     data['items_datetime'] = itemsDatetime;
     data['items_catogries'] = itemsCatogries;
-    data['categories_id'] = categoriesId;
-    data['categories_name'] = categoriesName;
-    data['categories_name_ar'] = categoriesNameAr;
-    data['categories_image'] = categoriesImage;
-    data['categories_datetime'] = categoriesDatetime;
-    data['favorite'] = favorite;
-
+    data['cart_id'] = cartId;
+    data['cart_usersid'] = cartUsersid;
+    data['cart_itemsid'] = cartItemsid;
     return data;
   }
 }

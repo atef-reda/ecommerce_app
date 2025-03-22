@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: changeLocalController.appTheme,
-      // home: TestView(),
-      getPages:getPages ,
+      // home: CartScreen(),
+      getPages: getPages,
     );
   }
 }

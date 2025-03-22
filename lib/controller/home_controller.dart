@@ -10,6 +10,7 @@ import '../core/functions/handlingdataresponse.dart';
 abstract class HomeController extends GetxController {
   getData();
   initialData();
+  goToFavorite();
   goToItems(int index, List categories, String categoriesId);
 }
 
@@ -29,9 +30,9 @@ class HomeControllerImpl extends HomeController {
   initialData() {
     email = myServices.prefs!.getString('email')!;
     id = myServices.prefs!.getInt('id')!;
-    phone = myServices.prefs!.getString('phone')!;
-    name = myServices.prefs!.getString('name')!;
-    step = myServices.prefs!.getString('step')!;
+    // phone = myServices.prefs!.getString('phone')!;
+    // name = myServices.prefs!.getString('name')!;
+    // step = myServices.prefs!.getString('step')!;
     lang = myServices.prefs!.getString('lang')!;
   }
 
@@ -43,8 +44,8 @@ class HomeControllerImpl extends HomeController {
     statusRequest = handlingDataResponse(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        categories.addAll(response['categories']);
-        items.addAll(response['items']);
+        categories.addAll(response['categories']['data']);
+        items.addAll(response['items']['data']);
       } else {
         statusRequest = StatusRequest.failure;
       }
@@ -66,5 +67,10 @@ class HomeControllerImpl extends HomeController {
       'selectetcat': index,
       'categoriesId': categoriesId
     });
+  }
+  
+  @override
+  goToFavorite() {
+    Get.toNamed(AppRoutes.myfavorite);    
   }
 }

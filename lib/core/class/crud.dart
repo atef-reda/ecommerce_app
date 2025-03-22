@@ -10,9 +10,10 @@ class Crud {
     try {
       bool internet = await checkInternet();
       if (internet) {
+        print('--------------------  http.post -----------------');
         var response = await http.post(Uri.parse(linkurl), body: data);
+        print('-------------------- ${response.statusCode} -----------------');
         if (response.statusCode == 200 || response.statusCode == 201) {
-          print('-------------------- ${response.statusCode} -----------------');
           Map responsebody = jsonDecode(response.body);
           print(responsebody);
           return Right(responsebody);

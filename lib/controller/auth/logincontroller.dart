@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/class/statusrequest.dart';
 import 'package:ecommerce_app/core/constant/routes.dart';
 import 'package:ecommerce_app/core/services/services.dart';
 import 'package:ecommerce_app/data/datasource/remote/auth/logindata.dart';
+import 'package:ecommerce_app/data/datasource/remote/auth/verifycodesignupdata.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,8 @@ class LoginControllerImpl extends LoginController {
   StatusRequest statusRequest = StatusRequest.none;
   LoginData loginData = LoginData(crud: Get.find<Crud>());
   MyServices myServices = Get.find();
+  VerifyCodeSignUpData verifyCodeSignUpData =
+      VerifyCodeSignUpData(crud: Get.find<Crud>());
   @override
   goToSignUp() {
     Get.offAllNamed(AppRoutes.signUp);
@@ -40,23 +43,30 @@ class LoginControllerImpl extends LoginController {
       statusRequest = handlingDataResponse(response);
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          myServices.prefs!.setInt('id', response['data']['users_id']);
-          myServices.prefs!.setString('email', response['data']['users_email']);
-          myServices.prefs!.setString('name', response['data']['users_name']);
-          myServices.prefs!.setString('phone', response['data']['users_phone']);
-          myServices.prefs!.setString('step', "2");
-          Get.offAllNamed(AppRoutes.homepage);
+          if (response['data']['users_approve'].toString() == '1') {
+            myServices.prefs!.setInt('id', response['data']['users_id']);
+            myServices.prefs!
+                .setString('email', response['data']['users_email']);
+            myServices.prefs!.setString('name', response['data']['users_name']);
+            myServices.prefs!
+                .setString('phone', response['data']['users_phone']);
+            myServices.prefs!.setString('step', "2");
+            Get.offAllNamed(AppRoutes.homepage);
+          } else {
+            verifyCodeSignUpData.resendCode(email: emailController.text);
+            Get.toNamed(AppRoutes.verifyCodeSignUp,
+                arguments: {'email': emailController.text});
+            statusRequest = StatusRequest.none;
+          }
         } else {
           Get.defaultDialog(title: '55'.tr, middleText: '58'.tr);
           statusRequest = StatusRequest.failure;
         }
-      }
-      else{
+      } else {
         // Get.defaultDialog(title: '55'.tr, middleText: '58'.tr);
         statusRequest = StatusRequest.none;
       }
-    } else {
-    }
+    } else {}
     update();
   }
 

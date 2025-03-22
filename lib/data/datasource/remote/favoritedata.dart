@@ -1,24 +1,25 @@
 import 'package:ecommerce_app/core/class/crud.dart';
 import 'package:ecommerce_app/core/constant/applinks.dart';
 
-class VerifyCodeSignUpData {
+class FavoriteData {
   Crud crud;
-  VerifyCodeSignUpData({
+  FavoriteData({
     required this.crud,
   });
-  postdata({required String email,required String verifycode}) async {
+  favoriteAdd(String userid,String itemid) async {
     var response = await crud
-        .postData(AppLink.verifycode, {
-          'verifycode':verifycode,
-          'email':email,
+        .postData(AppLink.favoriteadd, {
+      'user_id':userid,
+      'item_id':itemid,
         });
     return response.fold((left)=>left, (right)=>right);
   }
 
-    resendCode({required String email}) async {
+    favoriteRemove(String userid,String itemid) async {
     var response = await crud
-        .postData(AppLink.resend, {
-          'email':email,
+        .postData(AppLink.favoriteremove, {
+      'user_id':userid,
+      'item_id':itemid,
         });
     return response.fold((left)=>left, (right)=>right);
   }

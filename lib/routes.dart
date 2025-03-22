@@ -7,10 +7,13 @@ import 'package:ecommerce_app/view/screen/auth/verifycodesignup.dart';
 import 'package:ecommerce_app/view/screen/homescreen.dart';
 import 'package:ecommerce_app/view/screen/items.dart';
 import 'package:ecommerce_app/view/screen/language.dart';
+import 'package:ecommerce_app/view/screen/myfavorite.dart';
 import 'package:ecommerce_app/view/screen/onboarding.dart';
+import 'package:ecommerce_app/view/screen/settings.dart';
 import 'package:get/get.dart';
 import 'core/constant/routes.dart';
 import 'view/screen/auth/checkemail.dart';
+import 'view/screen/cart.dart';
 import 'view/screen/forget_password/forgetpassword.dart';
 import 'view/screen/forget_password/resetpassword.dart';
 import 'view/screen/forget_password/verifycode.dart';
@@ -34,4 +37,7 @@ List<GetPage<dynamic>>? getPages =[
   GetPage(name: AppRoutes.homepage, page:()=>  HomeScreen()),
   GetPage(name: AppRoutes.itemsscreen, page:()=>  ItemsScreen()),
   GetPage(name: AppRoutes.itemdetials, page:()=>  ItemDetials()),
+  GetPage(name: AppRoutes.myfavorite, page:()=>  MyFavorite()),
+  GetPage(name: AppRoutes.settings, page:()=>  SettingsScreen()),
+  GetPage(name: AppRoutes.cartscreen, page:()=>  CartScreen()),
 ];

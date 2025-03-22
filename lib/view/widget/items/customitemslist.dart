@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/controller/favoritecontroller.dart';
 import 'package:ecommerce_app/controller/itemscontroller.dart';
 import 'package:ecommerce_app/core/functions/translationdatabase.dart';
 import 'package:ecommerce_app/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/constant/applinks.dart';
 import '../../../core/constant/color.dart';
 
@@ -24,7 +24,8 @@ class CustomItemsList extends GetView<ItemsControllerImpl> {
               crossAxisCount: 2, childAspectRatio: 0.5),
           itemBuilder: (context, index) {
             return CustomItem(
-                itemsModel: ItemsModel.fromJson(controller.items[index]),isFavorite: true);
+              itemsModel: ItemsModel.fromJson(controller.items[index]),
+            );
           },
         ),
       ],
@@ -33,11 +34,12 @@ class CustomItemsList extends GetView<ItemsControllerImpl> {
 }
 
 class CustomItem extends GetView<ItemsControllerImpl> {
-  const CustomItem({super.key, required this.itemsModel,this.isFavorite=false});
+  const CustomItem({super.key, required this.itemsModel});
   final ItemsModel itemsModel;
-  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
+    FavoriteControllerImpl favoriteController = Get.put(FavoriteControllerImpl());
+    favoriteController.isFavorite[itemsModel.itemsId.toString()] =itemsModel.favorite!;
     return InkWell(
       onTap: () {
         controller.goToItemDetials(itemsModel);
@@ -100,11 +102,24 @@ class CustomItem extends GetView<ItemsControllerImpl> {
                     style: TextStyle(
                         fontFamily: 'sans', color: AppColor.primaryColor),
                   ),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border_outlined,color: AppColor.primaryColor,))
+                  GetBuilder<FavoriteControllerImpl>(
+                    builder: (context) {
+                      return IconButton(
+                          onPressed: () {
+                            if(favoriteController.isFavorite[itemsModel.itemsId.toString()] == '1'){
+                              favoriteController.setFavorite(itemsModel.itemsId.toString(), '0');
+                            }else{
+                              favoriteController.setFavorite(itemsModel.itemsId.toString(), '1');
+                            }
+                          },
+                          icon: Icon(
+                            favoriteController.isFavorite[itemsModel.itemsId.toString()] == '1'
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            color: AppColor.primaryColor,
+                          ));
+                    }
+                  )
                 ],
               )
             ],

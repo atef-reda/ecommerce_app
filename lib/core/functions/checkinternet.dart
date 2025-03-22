@@ -12,6 +12,9 @@ Future<bool> checkInternet() async {
       print('-------------------------');
 
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('-------------------------');
+        print(' Internet is available');
+        print('-------------------------');
         return true; // Internet is available
       }
     } on SocketException catch (_) {

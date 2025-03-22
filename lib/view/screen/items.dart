@@ -19,7 +19,13 @@ class ItemsScreen extends StatelessWidget {
             margin: EdgeInsets.all(15),
             child: ListView(
               children: [
-                CustomAppar(hintText: '61'.tr,),
+                CustomAppar(hintText: '61'.tr,
+                onPressedFavorite: (){
+                  controller.goToFavorites();
+                },
+                // onPressedIcon: (){},
+                onPressedSearch: (){},
+                ),
                 SizedBox(
                   height: 20,
                 ),

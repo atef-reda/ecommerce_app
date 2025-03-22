@@ -1,42 +1,29 @@
-import 'package:ecommerce_app/data/model/itemsmodel.dart';
+import 'package:ecommerce_app/core/class/statusrequest.dart';
+import 'package:ecommerce_app/data/datasource/remote/cartdata.dart';
+import 'package:ecommerce_app/data/model/cartmodel.dart';
 import 'package:get/get.dart';
 
-import '../core/class/statusrequest.dart';
 import '../core/functions/handlingdataresponse.dart';
 import '../core/services/services.dart';
-import '../data/datasource/remote/cartdata.dart';
 
-abstract class ItemDetialsController extends GetxController {
-  getData();
-  addCart();
-  removeCart();
-  addCartItems(String itemid);
-  removeCartItems(String itemid);
+abstract class CartController extends GetxController {
+  addCart(String itemid);
+  removeCart(String itemid);
   getCountItemCart(String itemid);
+  cartViewData();
+  resetCart();
+  refershCart();
 }
 
-class ItemDetialsControllerImpl extends ItemDetialsController {
+class CartControllerImpl extends CartController {
   CartData cartData = CartData(crud: Get.find());
   StatusRequest statusRequest = StatusRequest.none;
   MyServices myServices = Get.find();
-  int itemCounts = 0;
-  List subitems = [
-    {"name": "red", "id": 1, "active": '0'},
-    {"name": "yallow", "id": 2, "active": '0'},
-    {"name": "black", "id": 3, "active": '1'}
-  ];
-  late ItemsModel itemsModel;
+  List<CartModel> data = [];
+  double totalprice = 0;
+  int totalcount = 0;
   @override
-  getData() async {
-    statusRequest = StatusRequest.loading;
-    itemsModel = Get.arguments['itemsModel'];
-    itemCounts = await getCountItemCart(itemsModel.itemsId.toString());
-    statusRequest = StatusRequest.success;
-    update();
-  }
-
-  @override
-  addCartItems(String itemid) async {
+  addCart(String itemid) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.cartAdd(
@@ -58,11 +45,12 @@ class ItemDetialsControllerImpl extends ItemDetialsController {
         statusRequest = StatusRequest.failure;
       }
     }
+    refershCart();
     update();
   }
 
   @override
-  removeCartItems(String itemid) async {
+  removeCart(String itemid) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.cartRemove(
@@ -84,6 +72,7 @@ class ItemDetialsControllerImpl extends ItemDetialsController {
         statusRequest = StatusRequest.failure;
       }
     }
+    refershCart();
     update();
   }
 
@@ -106,25 +95,45 @@ class ItemDetialsControllerImpl extends ItemDetialsController {
   }
 
   @override
-  void onInit() async {
-    print('onInit Get Data');
-    await getData();
-    super.onInit();
-  }
-
-  @override
-  addCart() {
-    itemCounts++;
-    addCartItems(itemsModel.itemsId.toString());
+  cartViewData() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response =
+        await cartData.cartView(myServices.prefs!.getInt('id').toString());
+    statusRequest = handlingDataResponse(response);
+    if (statusRequest == StatusRequest.success) {
+      if (response['data']['status'] == 'success') {
+        List dataresponse = response['data']['data'];
+        data.addAll(
+            dataresponse.map((item) => CartModel.fromJson(item)).toList());
+        if (response['countprice'] != false) {
+          totalprice =
+              (response['countprice']['totalprice'] as num?)!.toDouble();
+          totalcount = response['countprice']['totalcount'];
+        }
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
     update();
   }
 
   @override
-  removeCart() {
-    if (itemCounts > 0) {
-      itemCounts--;
-      removeCartItems(itemsModel.itemsId.toString());
-      update();
-    }
+  void onInit() {
+    cartViewData();
+    super.onInit();
+  }
+
+  @override
+  resetCart() {
+    data.clear();
+    totalprice = 0.0;
+    totalcount = 0;
+  }
+
+  @override
+  refershCart() {
+    resetCart();
+    cartViewData();
   }
 }

@@ -44,6 +44,7 @@ class VerifyCodeSignupControllerImpl extends VerifyCodeSignupController {
 
   @override
   resendCode() {
+    verifyCodeSignUpData.resendCode(email: email);
   }
   @override
   void onInit() {

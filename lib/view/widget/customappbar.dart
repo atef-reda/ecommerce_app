@@ -4,11 +4,12 @@ import '../../core/constant/color.dart';
 class CustomAppar extends StatelessWidget {
   const CustomAppar(
       {super.key,
-      this.onPressedIcon,
+      // this.onPressedIcon,
       this.onPressedSearch,
-      required this.hintText});
-  final void Function()? onPressedIcon;
+      required this.hintText, this.onPressedFavorite});
+  // final void Function()? onPressedIcon;
   final void Function()? onPressedSearch;
+  final void Function()? onPressedFavorite;
   final String hintText;
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,18 @@ class CustomAppar extends StatelessWidget {
               ),
             ),
           ),
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: 5),
+          //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+          //   decoration: BoxDecoration(
+          //     color: Colors.grey[200],
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          //   child: IconButton(
+          //       onPressed: onPressedIcon,
+          //       icon: Icon(Icons.notifications_active_outlined,
+          //           color: AppColor.grey)),
+          // ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
@@ -44,10 +57,10 @@ class CustomAppar extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: IconButton(
-                onPressed: onPressedIcon,
-                icon: Icon(Icons.notifications_active_outlined,
+                onPressed: onPressedFavorite,
+                icon: Icon(Icons.favorite_border_outlined,
                     color: AppColor.grey)),
-          )
+          ),
         ],
       ),
     );

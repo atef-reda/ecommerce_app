@@ -23,8 +23,11 @@ class HomePage extends StatelessWidget {
             children: [
               CustomAppar(
                 hintText: '61'.tr,
-                onPressedIcon: () {},
+                // onPressedIcon: () {},
                 onPressedSearch: () {},
+                onPressedFavorite: () {
+                  controller.goToFavorite();
+                },
               ),
               CustomCardHome(
                 title: '62'.tr,
