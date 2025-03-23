@@ -42,7 +42,7 @@ class ItemDetials extends StatelessWidget {
                     builder: (controller) {
                       return PriceAndItemCount(
                         count: controller.itemCounts.toString(),
-                        price: controller.itemsModel.itemsPrice.toString(),
+                        price: controller.itemsModel.itemsDiscountPrice.toString(),
                         onAdd: () {
                           controller.addCart();
                         },

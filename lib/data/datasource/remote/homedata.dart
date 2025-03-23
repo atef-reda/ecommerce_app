@@ -11,4 +11,13 @@ class HomeData {
         .postData(AppLink.homePage, {});
     return response.fold((left)=>left, (right)=>right);
   }
+
+  searchData(String? search,String table) async {
+    var response = await crud
+        .postData(AppLink.search, {
+          "search":search,
+          "table":table,
+        });
+    return response.fold((left)=>left, (right)=>right);
+  }
 }

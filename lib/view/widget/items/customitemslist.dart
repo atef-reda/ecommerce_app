@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/controller/favoritecontroller.dart';
 import 'package:ecommerce_app/controller/itemscontroller.dart';
+import 'package:ecommerce_app/core/constant/imageassets.dart';
 import 'package:ecommerce_app/core/functions/translationdatabase.dart';
 import 'package:ecommerce_app/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +39,10 @@ class CustomItem extends GetView<ItemsControllerImpl> {
   final ItemsModel itemsModel;
   @override
   Widget build(BuildContext context) {
-    FavoriteControllerImpl favoriteController = Get.put(FavoriteControllerImpl());
-    favoriteController.isFavorite[itemsModel.itemsId.toString()] =itemsModel.favorite!;
+    FavoriteControllerImpl favoriteController =
+        Get.put(FavoriteControllerImpl());
+    favoriteController.isFavorite[itemsModel.itemsId.toString()] =
+        itemsModel.favorite!;
     return InkWell(
       onTap: () {
         controller.goToItemDetials(itemsModel);
@@ -48,79 +51,97 @@ class CustomItem extends GetView<ItemsControllerImpl> {
         elevation: 10,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
             children: [
-              Hero(
-                tag: itemsModel.itemsId!,
-                child: CachedNetworkImage(
-                  height: 150,
-                  fit: BoxFit.fill,
-                  imageUrl: "${AppLink.itemsImages}/${itemsModel.itemsImage}",
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '${traslationDataBase(arColumn: itemsModel.itemsNameAr!, enColumn: itemsModel.itemsName!)}',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('67'.tr, style: TextStyle(fontSize: 15)),
-                  Container(
-                    height: 15,
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ...List.generate(
-                            5,
-                            (index) => Icon(
-                                  Icons.star,
-                                  size: 13,
-                                )),
-                      ],
+                  Hero(
+                    tag: itemsModel.itemsId!,
+                    child: CachedNetworkImage(
+                      height: 150,
+                      fit: BoxFit.fill,
+                      imageUrl:
+                          "${AppLink.itemsImages}/${itemsModel.itemsImage}",
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${traslationDataBase(arColumn: itemsModel.itemsNameAr!, enColumn: itemsModel.itemsName!)}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('67'.tr, style: TextStyle(fontSize: 15)),
+                      Container(
+                        height: 15,
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ...List.generate(
+                                5,
+                                (index) => Icon(
+                                      Icons.star,
+                                      size: 13,
+                                    )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  // SizedBox(height: 6,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${itemsModel.itemsDiscountPrice} \$',
+                        style: TextStyle(
+                            fontFamily: 'sans', color: AppColor.primaryColor),
+                      ),
+                      GetBuilder<FavoriteControllerImpl>(builder: (context) {
+                        return IconButton(
+                            onPressed: () {
+                              if (favoriteController.isFavorite[
+                                      itemsModel.itemsId.toString()] ==
+                                  '1') {
+                                favoriteController.setFavorite(
+                                    itemsModel.itemsId.toString(), '0');
+                              } else {
+                                favoriteController.setFavorite(
+                                    itemsModel.itemsId.toString(), '1');
+                              }
+                            },
+                            icon: Icon(
+                              favoriteController.isFavorite[
+                                          itemsModel.itemsId.toString()] ==
+                                      '1'
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_outlined,
+                              color: AppColor.primaryColor,
+                            ));
+                      })
+                    ],
                   )
                 ],
               ),
-              // SizedBox(height: 6,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${itemsModel.itemsPrice} \$',
-                    style: TextStyle(
-                        fontFamily: 'sans', color: AppColor.primaryColor),
-                  ),
-                  GetBuilder<FavoriteControllerImpl>(
-                    builder: (context) {
-                      return IconButton(
-                          onPressed: () {
-                            if(favoriteController.isFavorite[itemsModel.itemsId.toString()] == '1'){
-                              favoriteController.setFavorite(itemsModel.itemsId.toString(), '0');
-                            }else{
-                              favoriteController.setFavorite(itemsModel.itemsId.toString(), '1');
-                            }
-                          },
-                          icon: Icon(
-                            favoriteController.isFavorite[itemsModel.itemsId.toString()] == '1'
-                                ? Icons.favorite
-                                : Icons.favorite_border_outlined,
-                            color: AppColor.primaryColor,
-                          ));
-                    }
-                  )
-                ],
+              if(itemsModel.itemsDiscount !=0)Positioned(
+                // top: 5,
+                // left: 5,
+                child: Image.asset(
+                  AppImageAsset.sales,
+                  width: 40,
+                ),
               )
             ],
           ),

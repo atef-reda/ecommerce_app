@@ -7,7 +7,7 @@ class MyFavoriteModel {
   String? itemsImage;
   int? itemsCount;
   int? itemsActive;
-  int? itemsPrice;
+  double? itemsPrice;
   int? itemsDiscount;
   String? itemsDatetime;
   int? itemsCatogries;
@@ -43,7 +43,7 @@ class MyFavoriteModel {
     itemsImage = json['items_image'];
     itemsCount = json['items_count'];
     itemsActive = json['items_active'];
-    itemsPrice = json['items_price'];
+    itemsPrice = (json['items_price'] as num?)?.toDouble();
     itemsDiscount = json['items_discount'];
     itemsDatetime = json['items_datetime'];
     itemsCatogries = json['items_catogries'];

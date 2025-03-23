@@ -73,7 +73,7 @@ class CartScreen extends StatelessWidget {
                                 controller.data[index].itemsId!.toString());
                           },
                           count: controller.data[index].itemscount!,
-                          price: controller.data[index].itemsPrice!,
+                          price: controller.data[index].itemsprice!,
                           name: controller.data[index].itemsName!,
                           image: controller.data[index].itemsImage!,
                         ),

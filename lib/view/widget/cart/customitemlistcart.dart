@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constant/applinks.dart';
+import 'package:ecommerce_app/core/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -42,7 +43,7 @@ class CustomItemsCartList extends StatelessWidget {
               ),
               subtitle: Text(
                 'Price: $price \$',
-                style: TextStyle(fontFamily: 'sans',
+                style: TextStyle(fontFamily: 'sans',color: AppColor.thirdColor,
                   fontSize: 10),
               ),
             ),

@@ -10,6 +10,7 @@ class ItemsModel {
   double? itemsPrice;
   int? itemsDiscount;
   String? itemsDatetime;
+  double? itemsDiscountPrice;
   int? itemsCatogries;
   int? categoriesId;
   String? categoriesName;
@@ -48,6 +49,7 @@ class ItemsModel {
     itemsCount = json['items_count'];
     itemsActive = json['items_active'];
     itemsPrice = (json['items_price'] as num?)?.toDouble();
+    itemsDiscountPrice = (json['items_price_discount'] as num?)?.toDouble();
     itemsDiscount = json['items_discount'];
     itemsDatetime = json['items_datetime'];
     itemsCatogries = json['items_catogries'];

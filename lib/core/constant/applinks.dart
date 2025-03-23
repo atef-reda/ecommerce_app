@@ -23,6 +23,7 @@ class AppLink {
 //--------------------------- APP Pages ------------------------
   static const String homePage = '${server}home.php';
   static const String itemsPage = '${server}items/items.php';
+  static const String search = '${server}items/search.php';
 
 //--------------------------- Favorite ------------------------
 

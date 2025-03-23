@@ -1,18 +1,16 @@
+import 'package:ecommerce_app/controller/home_controller.dart';
 import 'package:ecommerce_app/core/class/statusrequest.dart';
-import 'package:ecommerce_app/core/constant/routes.dart';
-import 'package:ecommerce_app/core/services/services.dart';
 import 'package:ecommerce_app/data/datasource/remote/itemsData.dart';
-import 'package:ecommerce_app/data/model/itemsmodel.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/functions/handlingdataresponse.dart';
 
-abstract class ItemsController extends GetxController {
+abstract class ItemsController extends MixSearchController {
   initialData();
   onCategoriesChange(int catSelected, String categoriesId);
   getData(String categoriesId);
-  goToItemDetials(ItemsModel itemsModel);
-  goToFavorites();
+  // goToItemDetials(ItemsModel itemsModel);
 }
 
 class ItemsControllerImpl extends ItemsController {
@@ -21,8 +19,6 @@ class ItemsControllerImpl extends ItemsController {
   int? selectedCat;
   String? categoriesId;
   ItemsData itemsData = ItemsData(crud: Get.find());
-  StatusRequest statusRequest = StatusRequest.none;
-  MyServices myServices = Get.find();
   @override
   initialData() {
     categories = Get.arguments['categories'];
@@ -40,6 +36,7 @@ class ItemsControllerImpl extends ItemsController {
 
   @override
   void onInit() {
+    searchController = TextEditingController();
     initialData();
     super.onInit();
   }
@@ -49,7 +46,8 @@ class ItemsControllerImpl extends ItemsController {
     items.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response = await itemsData.postdata(categoriesId,myServices.prefs!.getInt('id').toString());
+    var response = await itemsData.postdata(
+        categoriesId, myServices.prefs!.getInt('id').toString());
     statusRequest = handlingDataResponse(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
@@ -57,17 +55,14 @@ class ItemsControllerImpl extends ItemsController {
       } else {
         statusRequest = StatusRequest.failure;
       }
+    } else {
+      statusRequest = StatusRequest.failure;
     }
     update();
   }
 
-  @override
-  goToItemDetials(ItemsModel itemsModel) {
-    Get.toNamed('/itemdetials', arguments: {'itemsModel': itemsModel});
-  }
-  
-  @override
-  goToFavorites() {
-    Get.toNamed(AppRoutes.myfavorite);
-  }
+  // @override
+  // goToItemDetials(ItemsModel itemsModel) {
+  //   Get.toNamed('/itemdetials', arguments: {'itemsModel': itemsModel});
+  // }
 }

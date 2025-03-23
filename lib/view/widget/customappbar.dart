@@ -4,11 +4,12 @@ import '../../core/constant/color.dart';
 class CustomAppar extends StatelessWidget {
   const CustomAppar(
       {super.key,
-      // this.onPressedIcon,
-      this.onPressedSearch,
-      required this.hintText, this.onPressedFavorite});
-  // final void Function()? onPressedIcon;
+      required this.onPressedSearch,
+      required this.hintText,
+      this.onPressedFavorite,required this.onChangedForm, required this.mycontroller});
   final void Function()? onPressedSearch;
+  final void Function(String)? onChangedForm;
+  final TextEditingController mycontroller;
   final void Function()? onPressedFavorite;
   final String hintText;
   @override
@@ -18,6 +19,8 @@ class CustomAppar extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
+              controller: mycontroller,
+              onChanged: onChangedForm,
               decoration: InputDecoration(
                 prefixIcon: IconButton(
                   onPressed: onPressedSearch,
@@ -58,8 +61,8 @@ class CustomAppar extends StatelessWidget {
             ),
             child: IconButton(
                 onPressed: onPressedFavorite,
-                icon: Icon(Icons.favorite_border_outlined,
-                    color: AppColor.grey)),
+                icon:
+                    Icon(Icons.favorite_border_outlined, color: AppColor.grey)),
           ),
         ],
       ),

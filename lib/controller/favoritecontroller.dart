@@ -36,6 +36,8 @@ class FavoriteControllerImpl extends FavoriteController {
         );
         statusRequest = StatusRequest.failure;
       }
+    }else{
+        statusRequest = StatusRequest.failure;
     }
   }
 
@@ -60,6 +62,8 @@ class FavoriteControllerImpl extends FavoriteController {
         );
         statusRequest = StatusRequest.failure;
       }
+    }else{
+        statusRequest = StatusRequest.failure;
     }
   }
 

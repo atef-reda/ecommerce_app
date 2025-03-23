@@ -1,22 +1,21 @@
+import 'package:ecommerce_app/controller/home_controller.dart';
 import 'package:ecommerce_app/core/class/statusrequest.dart';
-import 'package:ecommerce_app/core/services/services.dart';
 import 'package:ecommerce_app/data/datasource/remote/myfavoritedata.dart';
 import 'package:ecommerce_app/data/model/myfavoritemodel.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/functions/handlingdataresponse.dart';
 
-abstract class MyFavoriteController extends GetxController {
+abstract class MyFavoriteController extends MixSearchController {
   getData();
   deleteItemFromFavorite(String id);
 }
 
 class MyFavoriteControllerImpl extends MyFavoriteController {
-  StatusRequest statusRequest = StatusRequest.none;
   MyFavoriteData myFavoriteData = MyFavoriteData(crud: Get.find());
   List favoriteItems = [];
   List<MyFavoriteModel> data = [];
-  MyServices myServices = Get.find();
   
   @override
   getData() async {
@@ -38,6 +37,7 @@ class MyFavoriteControllerImpl extends MyFavoriteController {
 
   @override
   void onInit() {
+    searchController = TextEditingController();
     getData();
     super.onInit();
   }
